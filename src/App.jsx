@@ -1,32 +1,31 @@
 import Header from './components/Header';
 import UserInput from './components/UserInput';
 import Results from './components/Results';
-
 import { useState } from 'react';
 
 function App() {
-
   const [ userInput, setUserInput ] = useState({
     initialInvestment: 1000,
-    annualInvestment: 100,
-    expectedReturn: 6,
-    duration: 6,
+    annualInvestment: 500,
+    expectedReturn: 100,
+    duration: 10,
   });
 
-  function handleChange(inputID, newValue) {
-    setUserInput((prevInputs=> {
+  function handleInputChange(inputID, newValue) {
+    setUserInput(prevInputs => {
       return {
-        ...prevInputs, [inputID]: newValue
+        ...prevInputs, [inputID]: +newValue
       };
-    }))
+    });
   }
+
   if(userInput.duration <= 0) userInput.duration = 1;
 
   return (
     <div>
       <Header />
-      <UserInput onChange={handleChange} userInput={userInput}/>
-      <Results input={userInput}/>
+      <UserInput userInput={userInput} onChange={handleInputChange}/>
+      <Results input={userInput} />
     </div>
   );
 }
